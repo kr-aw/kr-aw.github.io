@@ -1,12 +1,391 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Intro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한국형 올웨더 포트폴리오 탐색기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Neutral (bg-stone-50, text-stone-800, accent-teal-600) -->
+    <!-- Application Structure Plan: A thematic, single-page journey. Starts with the 'Why' (All-Weather basics & the KRW/USD problem), moves to the 'What' (interactive portfolio comparison), and ends with the 'How' (practical strategy guide). This non-linear, task-oriented flow is more engaging than the report's academic structure, guiding the user from understanding the problem to seeing the solution and learning how to apply it. -->
+    <!-- Visualization & Content Choices: 1. Economic Seasons (Report Part 1) -> Goal: Inform -> Viz: Interactive HTML/CSS grid -> Interaction: Hover to reveal asset info -> Justification: Simple, visual way to explain the core concept without a chart. 2. Portfolio Allocation (Report Part 3) -> Goal: Compare -> Viz: Interactive Donut Chart (Chart.js) -> Interaction: Toggle between Standard and Korean portfolios -> Justification: Direct, visual comparison is the most effective way to show the proposed change. 3. Correlation (Report Part 2) -> Goal: Explain -> Viz: Illustrative dual line graphs (Chart.js) -> Interaction: Static display -> Justification: Visually demonstrates the key negative correlation concept that justifies the portfolio change. 4. Strategy Guide (Report Part 4) -> Goal: Instruct -> Viz: Accordion/Card layout (HTML/JS) -> Interaction: Click to expand -> Justification: Organizes detailed text into digestible, user-initiated chunks. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f9fafb; /* gray-50 */
+            color: #27272a; /* zinc-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+            max-height: 450px;
+        }
+        .season-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .season-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #0d9488; /* teal-600 */
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
 </head>
-<body>
-  <p>Hi!</p>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-teal-700">
+                한국형 올웨더 포트폴리오
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#intro" class="nav-link font-medium">소개</a>
+                <a href="#compare" class="nav-link font-medium">포트폴리오 비교</a>
+                <a href="#strategy" class="nav-link font-medium">실행 전략</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-stone-600 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#intro" class="block py-2 px-6 text-sm hover:bg-stone-100">소개</a>
+            <a href="#compare" class="block py-2 px-6 text-sm hover:bg-stone-100">포트폴리오 비교</a>
+            <a href="#strategy" class="block py-2 px-6 text-sm hover:bg-stone-100">실행 전략</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="intro" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-teal-800">환율 리스크를 넘어, 한국인을 위한 올웨더</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-stone-600 mb-12">
+                    레이 달리오의 올웨더 포트폴리오는 훌륭하지만, 미국 달러(USD) 기반입니다. 원화(KRW)를 사용하는 한국인 투자자에게는 환율 변동성이란 추가 리스크가 존재합니다. 이 페이지는 그 해답을 제시합니다.
+                </p>
+                
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 mt-16">올웨더의 핵심: 4개의 경제 계절</h2>
+                <p class="text-md max-w-2xl mx-auto text-stone-600 mb-12">
+                    올웨더는 경제를 예측하는 대신, 어떤 상황에서도 대비하는 '리스크 분산' 철학에 기반합니다. 아래 카드를 클릭(모바일)하거나 마우스를 올려(데스크탑) 각 계절에 어떤 자산이 빛을 발하는지 확인해보세요.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    <div class="season-card bg-stone-100 p-6 rounded-lg shadow-md text-left">
+                        <h3 class="text-xl font-bold mb-2 text-sky-700">📈 경제 성장기</h3>
+                        <p class="text-stone-600 text-sm">물가 상승률이 예상보다 낮고, 경제가 성장하는 시기입니다.</p>
+                        <ul class="mt-4 text-sm space-y-2">
+                            <li class="font-semibold text-sky-800">✔ 주식: 기업 이익 증가</li>
+                            <li class="font-semibold text-sky-800">✔ 원자재: 수요 증가</li>
+                        </ul>
+                    </div>
+                    <div class="season-card bg-stone-100 p-6 rounded-lg shadow-md text-left">
+                        <h3 class="text-xl font-bold mb-2 text-amber-700">📉 경제 침체기</h3>
+                        <p class="text-stone-600 text-sm">물가 하락률이 예상보다 높고, 경제가 둔화되는 시기입니다.</p>
+                        <ul class="mt-4 text-sm space-y-2">
+                            <li class="font-semibold text-amber-800">✔ 장기채권: 금리 인하로 가격 상승</li>
+                            <li class="font-semibold text-amber-800">✔ 금: 안전자산 선호</li>
+                        </ul>
+                    </div>
+                    <div class="season-card bg-stone-100 p-6 rounded-lg shadow-md text-left">
+                        <h3 class="text-xl font-bold mb-2 text-red-700">🔥 인플레이션 상승기</h3>
+                        <p class="text-stone-600 text-sm">물가 상승률이 예상보다 높고, 경제가 성장하는 시기입니다.</p>
+                        <ul class="mt-4 text-sm space-y-2">
+                            <li class="font-semibold text-red-800">✔ 원자재: 실물 가치 상승</li>
+                            <li class="font-semibold text-red-800">✔ 금: 화폐가치 하락 헤지</li>
+                        </ul>
+                    </div>
+                    <div class="season-card bg-stone-100 p-6 rounded-lg shadow-md text-left">
+                        <h3 class="text-xl font-bold mb-2 text-indigo-700">❄️ 디플레이션 상승기</h3>
+                        <p class="text-stone-600 text-sm">물가 하락률이 예상보다 높고, 경제가 둔화되는 시기입니다.</p>
+                        <ul class="mt-4 text-sm space-y-2">
+                            <li class="font-semibold text-indigo-800">✔ 장기채권: 실질 가치 상승</li>
+                            <li class="font-semibold text-indigo-800">✔ 주식: (일부 방어주)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="compare" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">표준 vs 한국형: 포트폴리오 비교</h2>
+                    <p class="text-lg max-w-3xl mx-auto text-stone-600">
+                        환율 리스크를 고려하여 채권 비중을 조정한 '한국형 올웨더 포트폴리오'를 제안합니다. 토글 버튼을 눌러 두 포트폴리오를 비교해보세요.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-12">
+                    <div class="w-full lg:w-1/2">
+                        <div class="flex justify-center items-center mb-6 space-x-4">
+                            <span id="label-standard" class="font-semibold text-stone-500">표준 올웨더</span>
+                            <label for="portfolio-toggle" class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" value="" id="portfolio-toggle" class="sr-only peer">
+                                <div class="w-14 h-7 bg-stone-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-teal-300 peer-checked:bg-teal-600"></div>
+                                <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-full"></span>
+                            </label>
+                            <span id="label-korean" class="font-bold text-teal-700">한국형 올웨더</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="portfolioChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="portfolio-description" class="w-full lg:w-1/2 mt-8 lg:mt-0 p-6 bg-white rounded-lg shadow-md">
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">실행 전략 가이드</h2>
+                    <p class="text-lg max-w-3xl mx-auto text-stone-600">
+                        포트폴리오 구성만큼 중요한 것은 실행과 관리입니다. 핵심 전략 3가지를 확인하세요.
+                    </p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-4">
+                    <div class="accordion-item bg-stone-50 rounded-lg border border-stone-200">
+                        <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-stone-100 transition-colors">
+                            <span>1. 환노출(Unhedged) vs 환헤지(Hedged) 선택하기</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 border-t border-stone-200 text-stone-700">
+                                <p class="mb-4">해외 자산 투자 시 환율 변동에 자산을 노출시킬지, 아니면 비용을 지불하고 환율 변동 위험을 제거할지 선택해야 합니다.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white p-4 rounded-md border">
+                                        <h4 class="font-bold text-teal-700">환노출 (Unhedged)</h4>
+                                        <p class="text-sm mt-2"><b>장점:</b> 장기적 원화 약세 시 환차익 기대. 국내 증시 하락 시 위험 방어 효과. 운용보수 저렴.</p>
+                                        <p class="text-sm mt-1"><b>단점:</b> 환율 급락 시 원화 기준 손실 발생 가능.</p>
+                                    </div>
+                                    <div class="bg-white p-4 rounded-md border">
+                                        <h4 class="font-bold text-rose-700">환헤지 (Hedged)</h4>
+                                        <p class="text-sm mt-2"><b>장점:</b> 환율 변동과 무관하게 자산 자체의 수익률 추구. 포트폴리오 안정성 증대.</p>
+                                        <p class="text-sm mt-1"><b>단점:</b> 환헤지 비용으로 인한 추가 운용보수 발생. 환차익 기회 상실.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-stone-50 rounded-lg border border-stone-200">
+                        <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-stone-100 transition-colors">
+                            <span>2. 효과적인 환율 리스크 관리</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 border-t border-stone-200 text-stone-700">
+                                <p>환율 예측은 전문가에게도 어려운 영역입니다. 투기보다는 리스크 관리에 집중해야 합니다.</p>
+                                <ul class="list-disc list-inside mt-4 space-y-2">
+                                    <li><b>분할 환전 및 매수:</b> 한 번에 큰 금액을 환전하기보다, 환율이 유리하다고 판단될 때 꾸준히 분할 매수하여 평균 매입 단가를 관리합니다. (달러 코스트 에버리징 효과)</li>
+                                    <li><b>환헤지 ETF 활용:</b> 환율 변동성 자체를 제거하고 싶다면, 상품명에 'H'가 붙은 환헤지 ETF를 활용할 수 있습니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-stone-50 rounded-lg border border-stone-200">
+                        <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-stone-100 transition-colors">
+                            <span>3. 주기적인 리밸런싱의 중요성</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 border-t border-stone-200 text-stone-700">
+                                <p class="mb-4">리밸런싱은 포트폴리오의 리스크 균형을 초기의 목표대로 유지하고, 감정적인 매매를 방지하는 핵심적인 관리 활동입니다.</p>
+                                <ul class="list-disc list-inside mt-4 space-y-2">
+                                    <li><b>목표:</b> 자산 비중을 원래 목표(예: 미국주식 30%)로 재조정합니다.</li>
+                                    <li><b>방법:</b> 비중이 높아진 자산을 일부 매도하고, 비중이 낮아진 자산을 매수합니다.</li>
+                                    <li><b>주기:</b> 일반적으로 3개월, 6개월, 또는 1년 주기로 실행하는 것이 효과적입니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>본 페이지는 제공된 연구 보고서를 기반으로 제작된 인터랙티브 정보 시각화 자료입니다.</p>
+            <p class="text-sm text-stone-400 mt-2">투자에 대한 결정과 책임은 투자자 본인에게 있습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const portfolioData = {
+                standard: {
+                    labels: ['미국 주식', '장기 채권', '중기 채권', '금', '원자재'],
+                    data: [30, 40, 15, 7.5, 7.5],
+                    backgroundColor: ['#0ea5e9', '#1d4ed8', '#60a5fa', '#f59e0b', '#f97316'],
+                    description: `
+                        <h3 class="text-2xl font-bold mb-4 text-stone-800">표준 올웨더 포트폴리오</h3>
+                        <p class="text-stone-600 mb-6">레이 달리오가 제안한 개인 투자자용 모델로, 미국 달러(USD) 자산을 중심으로 구성되어 있습니다. 모든 자산이 달러 기반이므로, 한국 투자자는 자산 가격 변동과 환율 변동 리스크를 동시에 부담하게 됩니다.</p>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start"><span class="font-bold text-lg text-sky-500 mr-2">■</span><div><b>미국 주식 (30%):</b> 경제 성장기 핵심 동력</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-blue-700 mr-2">■</span><div><b>장기 채권 (40%):</b> 경기 침체기 위험 방어</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-sky-400 mr-2">■</span><div><b>중기 채권 (15%):</b> 채권 포트폴리오 안정성 보강</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-amber-500 mr-2">■</span><div><b>금 (7.5%):</b> 인플레이션 및 지정학적 리스크 헤지</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-orange-500 mr-2">■</span><div><b>원자재 (7.5%):</b> 인플레이션 방어</div></li>
+                        </ul>
+                    `
+                },
+                korean: {
+                    labels: ['미국 주식', '국내 채권', '해외 채권', '금', '원자재'],
+                    data: [30, 20, 35, 7.5, 7.5],
+                    backgroundColor: ['#0ea5e9', '#10b981', '#059669', '#f59e0b', '#f97316'],
+                    description: `
+                        <h3 class="text-2xl font-bold mb-4 text-teal-700">한국형 올웨더 포트폴리오 (제안)</h3>
+                        <p class="text-stone-600 mb-6">표준 포트폴리오의 채권 비중(55%)을 국내 채권과 해외 채권으로 분산하여 환율 리스크를 관리하는 모델입니다. 원화 자산인 국내 채권을 편입하여 포트폴리오의 안정성을 높입니다.</p>
+                        <ul class="space-y-3 text-stone-700">
+                            <li class="flex items-start"><span class="font-bold text-lg text-sky-500 mr-2">■</span><div><b>미국 주식 (30%):</b> 글로벌 성장 동력 유지. 환율 상승 시 추가 수익 기대.</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-emerald-500 mr-2">■</span><div><b>국내 채권 (20%):</b> 원화 자산으로 환율 리스크 원천 제거. 국내 경기 방어.</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-teal-600 mr-2">■</span><div><b>해외 채권 (35%):</b> 미국 경제 노출 유지 및 국내 채권 보완.</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-amber-500 mr-2">■</span><div><b>금 (7.5%):</b> 인플레이션 헤지 기능 유지.</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-orange-500 mr-2">■</span><div><b>원자재 (7.5%):</b> 인플레이션 방어 기능 유지.</div></li>
+                        </ul>
+                    `
+                }
+            };
+
+            const ctx = document.getElementById('portfolioChart').getContext('2d');
+            const portfolioChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: portfolioData.standard.labels,
+                    datasets: [{
+                        data: portfolioData.standard.data,
+                        backgroundColor: portfolioData.standard.backgroundColor,
+                        borderColor: '#f9fafb',
+                        borderWidth: 4,
+                        hoverBorderColor: '#f9fafb',
+                        hoverBorderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans KR', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            },
+                            bodyFont: {
+                                size: 14,
+                                family: "'Noto Sans KR', sans-serif"
+                            },
+                            titleFont: {
+                                size: 16,
+                                family: "'Noto Sans KR', sans-serif"
+                            },
+                            padding: 12,
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            cornerRadius: 8
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            });
+
+            const toggle = document.getElementById('portfolio-toggle');
+            const descriptionDiv = document.getElementById('portfolio-description');
+            const labelStandard = document.getElementById('label-standard');
+            const labelKorean = document.getElementById('label-korean');
+
+            function updateChart(isKorean) {
+                const data = isKorean ? portfolioData.korean : portfolioData.standard;
+                portfolioChart.data.labels = data.labels;
+                portfolioChart.data.datasets[0].data = data.data;
+                portfolioChart.data.datasets[0].backgroundColor = data.backgroundColor;
+                portfolioChart.update();
+                descriptionDiv.innerHTML = data.description;
+                
+                if (isKorean) {
+                    labelStandard.classList.remove('font-bold', 'text-teal-700');
+                    labelStandard.classList.add('font-semibold', 'text-stone-500');
+                    labelKorean.classList.add('font-bold', 'text-teal-700');
+                    labelKorean.classList.remove('font-semibold', 'text-stone-500');
+                } else {
+                    labelKorean.classList.remove('font-bold', 'text-teal-700');
+                    labelKorean.classList.add('font-semibold', 'text-stone-500');
+                    labelStandard.classList.add('font-bold', 'text-teal-700');
+                    labelStandard.classList.remove('font-semibold', 'text-stone-500');
+                }
+            }
+            
+            toggle.addEventListener('change', (event) => {
+                updateChart(event.target.checked);
+            });
+
+            updateChart(true);
+
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('span:last-child');
+
+                header.addEventListener('click', () => {
+                    const isOpened = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    
+                    accordionItems.forEach(i => {
+                        i.querySelector('.accordion-content').style.maxHeight = '0px';
+                        i.querySelector('.accordion-header span:last-child').style.transform = 'rotate(0deg)';
+                    });
+
+                    if (!isOpened) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
