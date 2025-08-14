@@ -475,16 +475,16 @@
             // 초기 상태는 한국형 포트폴리오로 설정
             updatePortfolioChart(true);
             
-            // 환율-코스피 상관관계 라인 차트 (가상 데이터)
+            // 환율-코스피 상관관계 라인 차트
             const correlationCtx = document.getElementById('correlationChart').getContext('2d');
             const correlationChart = new Chart(correlationCtx, {
                 type: 'line',
                 data: {
-                    labels: ['2020.1', '2020.7', '2021.1', '2021.7', '2022.1', '2022.7', '2023.1', '2023.7', '2024.1'],
+                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
                     datasets: [
                         {
                             label: 'KOSPI (좌측 축)',
-                            data: [100, 115, 130, 135, 110, 105, 120, 125, 140],
+                            data: [1961,2026,2467,2041,2198,2873,2978,2236,2655,2399],
                             borderColor: '#3b82f6',
                             backgroundColor: 'rgba(59, 130, 246, 0.1)',
                             fill: false,
@@ -493,7 +493,7 @@
                         },
                         {
                             label: '원/달러 환율 (우측 축)',
-                            data: [100, 95, 90, 95, 115, 120, 105, 100, 98],
+                            data: [1172,1208,1071,1116,1156,1086,1189,1266,1288,1472],
                             borderColor: '#ef4444',
                             backgroundColor: 'rgba(239, 68, 68, 0.1)',
                             fill: false,
@@ -514,14 +514,14 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            title: { display: true, text: 'KOSPI 지수 (기준: 100)', color: '#3b82f6' }
+                            title: { display: true, text: 'KOSPI 지수', color: '#3b82f6' }
                         },
                         y1: {
                             type: 'linear',
                             display: true,
                             position: 'right',
                             grid: { drawOnChartArea: false },
-                            title: { display: true, text: '원/달러 환율 (기준: 100)', color: '#ef4444' }
+                            title: { display: true, text: '원달러 환율', color: '#ef4444' }
                         }
                     },
                     plugins: {
