@@ -445,6 +445,7 @@
                 },
                 options: {responsive: true, maintainAspectRatio: false, interaction: { mode: 'index',  intersect: false, },
                     scales: {
+                        x: { title: { display: true, text: '연도' }, ticks:{font:{size:16}}  },
                         y: {type: 'linear', display: true, position: 'left', min: 1000, max: 3500, ticks:{font:{size:16}},
                             title: { display: true, text: 'KOSPI 지수', color: '#3b82f6' } },
                         y1: { type: 'linear', display: true, position: 'right',  min: 600, max: 1600, ticks:{font:{size:16}},
@@ -453,8 +454,8 @@
                     plugins: {
                         legend: { position: 'top', labels: { font: { size: 18, family: "'Noto Sans KR', sans-serif" } } },
                         tooltip: {
-                            bodyFont: { size: 18, family: "'Noto Sans KR', sans-serif" },
-                            titleFont: { size: 18, family: "'Noto Sans KR', sans-serif" },
+                            bodyFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
+                            titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
                             padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8
                         }
                     }
@@ -490,14 +491,14 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: { title: { display: true, text: '연도' },ticks:{font:{size:16}}  },
+                        x: { title: { display: true, text: '연도' }, ticks:{font:{size:16}}  },
                         y: { title: { display: true, text: '누적 수익률 (기준: 100)' }, ticks:{font:{size:16}} }
                     },
                     plugins: {
                         legend: { position: 'top' , labels: { font: { size: 18, family: "'Noto Sans KR', sans-serif" } } },
                         tooltip: {
-                            bodyFont: { size: 18, family: "'Noto Sans KR', sans-serif" },
-                            titleFont: { size: 18, family: "'Noto Sans KR', sans-serif" },
+                            bodyFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
+                            titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
                             padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8
                         }
                     }
