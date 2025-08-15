@@ -401,26 +401,16 @@
                 data: {labels: portfolioData.korean.labels,
                        datasets: [{data: portfolioData.korean.data, backgroundColor: portfolioData.korean.backgroundColor, borderWidth: 1}]},
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '60%',
-                    plugins: { legend: {position: 'bottom',
-                            labels: {padding: 20, font: { size: 14, family: "'Noto Sans KR', sans-serif" }}},
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) { label += ': '; }
-                                    if (context.parsed !== null) { label += context.parsed + '%'; }
-                                    return label;
-                                }
-                            },
+                    responsive: true, maintainAspectRatio: false, cutout: '60%',
+                    plugins: { legend: {position: 'bottom', labels: {padding: 20, font: { size: 14, family: "'Noto Sans KR', sans-serif" }}},
+                        tooltip: {callbacks: {label: function(context) {let label = context.label || ''; if (label) { label += ': '; }
+                                    if (context.parsed !== null) { label += context.parsed + '%'; } return label;}},
                             bodyFont: { size: 14, family: "'Noto Sans KR', sans-serif" },
                             titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
                             padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8
                         }
                     },
-                    animation: { animateRotate: true, animateScale: true }
+                    animation: { animateRotate: true, animateScale: true, easing: 'easeOutQuart' }
                 }
             });
 
