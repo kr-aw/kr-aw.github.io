@@ -400,7 +400,7 @@
             const toggle = document.getElementById('portfolio-toggle');
             const descriptionDiv = document.getElementById('portfolio-description');
             const labelStandard = document.getElementById('label-standard');
-            const labelKorean = document.getElementById('label-korean');
+            const labelKorean   = document.getElementById('label-korean');
 
             function updatePortfolioChart(isKorean) {
                 const data = isKorean ? portfolioData.korean : portfolioData.standard;
@@ -425,8 +425,8 @@
             
             toggle.addEventListener('change', (event) => {updatePortfolioChart(event.target.checked);});
 
-            // 초기 상태는 한국형 포트폴리오로 설정
-            updatePortfolioChart(true);
+            // 초기 상태는 일반 포트폴리오로 설정
+            updatePortfolioChart(false);
             
             // 환율-코스피 상관관계 라인 차트
             const correlationCtx = document.getElementById('correlationChart').getContext('2d');
