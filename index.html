@@ -38,7 +38,7 @@
             </div>
             <div class="flex flex-wrap justify-center md:space-x-4 space-x-2">
                 <button id="intro-btn"       class="nav-link font-medium px-3 py-2 rounded-md active text-sm md:text-base">소개</button>
-                <button id="philosophy-btn"  class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">핵심 철학</button>
+                <a href="#philosophy-section"  id="philosophy-btn"  class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">핵심 철학</a>
                 <button id="compare-btn"     class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">분석 및 비교</button>
                 <button id="performance-btn" class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">과거 성과</button>
                 <button id="strategy-btn"    class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">실행 전략</button>
@@ -370,10 +370,10 @@
                         <h3 class="text-2xl font-bold mb-4 text-teal-700">한국형 올웨더 포트폴리오</h3>
                         <p class="text-stone-600 mb-6"> 일반 올웨더의 비중을 따르지만 국내(35%)와 해외(65%)로 분산하여 환율 리스크까지 관리하는 모델입니다. 달러 자산이 포트폴리오의 안정성을 높입니다.</p>
                         <ul class="space-y-3 text-stone-700">
-                            <li class="flex items-start"><span class="font-bold text-lg text-sky-500 mr-2">■</span><div><b>한국 주식 (15%):</b> 한국 명목 성장을 반영하여 경제 성장기의 중요한 수익 원천 </div></li>
-                            <li class="flex items-start"><span class="font-bold text-lg text-sky-500 mr-2">■</span><div><b>미국 주식 (15%):</b> 글로벌 성장기 투자수익의 원천 </div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-sky-500 mr-2">■</span><div><b>한국 주식 (15%):</b> 한국 경제 성장기 투자수익의 원천 </div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-sky-500 mr-2">■</span><div><b>미국 주식 (15%):</b> 글로벌 성장기 투자수익 원천 다변화 </div></li>
                             <li class="flex items-start"><span class="font-bold text-lg text-emerald-500 mr-2">■</span><div><b>국내 채권 (20%):</b> 국내 경기 방어 효과</div></li>
-                            <li class="flex items-start"><span class="font-bold text-lg text-teal-600 mr-2">■</span><div><b>해외 채권 (35%):</b> 경기 침체기 위험 방어. 환율 상승으로 추가 수익 기대.</div></li>
+                            <li class="flex items-start"><span class="font-bold text-lg text-teal-600 mr-2">■</span><div><b>해외 채권 (35%):</b> 경기 침체기 위험 방어. 환율 상승으로 헤지 효과 증가.</div></li>
                             <li class="flex items-start"><span class="font-bold text-lg text-amber-500 mr-2">■</span><div><b>금 (7.5%):</b> 인플레이션 및 지정학 리스크 헤지</div></li>
                             <li class="flex items-start"><span class="font-bold text-lg text-orange-500 mr-2">■</span><div><b>원자재 (7.5%):</b> 인플레이션 방어 기능</div></li>
                         </ul>
@@ -440,19 +440,14 @@
                 data: {
                     labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
                     datasets: [
-                        {
-                            label: 'KOSPI (좌측 축)',
+                           {label: 'KOSPI (좌측 축)',
                             data: [1961,2026,2467,2041,2198,2873,2978,2236,2655,2399],
                             borderColor: '#3b82f6',      backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            fill: false,     tension: 0.0,     yAxisID: 'y'
-                        },
-                        {
-                            label: '원/달러 환율 (우측 축)',
+                            fill: false,     tension: 0.0,     yAxisID: 'y'},
+                           {label: '원/달러 환율 (우측 축)',
                             data: [1172,1208,1071,1116,1156,1086,1189,1266,1288,1472],
                             borderColor: '#ef4444',        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                            fill: false,      tension: 0.0,     yAxisID: 'y1'
-                        }
-                    ]
+                            fill: false,      tension: 0.0,     yAxisID: 'y1'}]
                 },
                 options: {responsive: true, maintainAspectRatio: false, interaction: { mode: 'index',  intersect: false, },
                     scales: {
@@ -460,17 +455,14 @@
                         y: {type: 'linear', display: true, position: 'left', min: 1000, max: 3500, ticks:{font:{size:16}},
                             title: { display: true, text: 'KOSPI 지수', color: '#3b82f6' } },
                         y1: { type: 'linear', display: true, position: 'right',  min: 600, max: 1600, ticks:{font:{size:16}},
-                            grid: { drawOnChartArea: false },
-                            title: { display: true, text: '원달러 환율', color: '#ef4444' }}},
+                            grid: { drawOnChartArea: false }, title: { display: true, text: '원달러 환율', color: '#ef4444' }}},
                     plugins: {
                         legend: { position: 'top', labels: { font: { size: 18, family: "'Noto Sans KR', sans-serif" } } },
                         tooltip: {
                             bodyFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
                             titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
-                            padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8
-                        }
-                    }
-                }
+                            padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8}}
+                         }
             });
 
             // 과거 성과 시뮬레이션 라인 차트
@@ -480,23 +472,15 @@
                 data: {
                     labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
                     datasets: [
-                        {
-                            label: '한국 주식(KOSPI)',
+                           {label: '한국 주식(KOSPI)',
                             data: [100, 106.8, 138.3, 116.6, 132.9, 175.6, 189.5, 142.2, 179.6, 160.7],
                             borderColor: '#1d4ed8',
                             backgroundColor: 'rgba(29, 78, 216, 0.1)',
-                            fill: false,
-                            tension: 0.0
-                        },
-                        {
-                            label: '한국형 올웨더 포트폴리오',
+                            fill: false, tension: 0.0 },
+                           {label: '한국형 올웨더 포트폴리오',
                             data: [100, 110.2, 115.8, 114.3, 140.5, 157.3, 181.4, 155.8, 182.9, 210.4],
                             borderColor: 'rgba(255, 165, 0, 0.6)',
-                            backgroundColor: 'rgba(255, 165, 0, 0.9)',
-                            fill: false,
-                            tension: 0.0
-                        }
-                    ]
+                            backgroundColor: 'rgba(255, 165, 0, 0.9)', fill: false, tension: 0.0 }]
                 },
                 options: {
                     responsive: true,
@@ -510,10 +494,7 @@
                         tooltip: {
                             bodyFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
                             titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
-                            padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8
-                        }
-                    }
-                }
+                            padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8}}}
             });
 
             // 아코디언 메뉴 기능
