@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kr-aw.github.io/sitemap.xml
