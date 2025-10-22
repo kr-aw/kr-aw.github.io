@@ -48,7 +48,6 @@
                 <a href="#compare-section"     id="compare-btn"     class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">분석 및 비교</a>
                 <a href="#performance-section" id="performance-btn" class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">과거 성과</a>
                 <a href="#strategy-section"    id="strategy-btn"    class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">실행 전략</a>
-                <a href="#note-section"        id="note-btn"        class="nav-link font-medium px-3 py-2 rounded-md text-sm md:text-base">투자 노트</a>
             </div>
         </nav>
     </header>
@@ -61,8 +60,8 @@
                 <h1 class="text-3xl md:text-4xl font-bold mb-4 text-teal-800">환율 리스크를 넘어, 한국인을 위한 올웨더</h1>
                 <p class="text-lg md:text-xl max-w-3xl mx-auto text-stone-600 mb-8" style="word-break: keep-all;">
                     레이 달리오가 제시한 ‘올웨더 포트폴리오(All Weather Portfolio)’는 어떠한 경제 환경에서도 꾸준한 수익을 창출하도록 설계된 전략입니다.<br>
-                    하지만 이 전략은 미국에서 투자(USD)를 기준으로 설계되었기에, 원화(KRW)를 주요 통화로 사용하는 한국인에게는 환율 변동이라는 추가 리스크가 존재합니다.<br>
-                    따라서 일반 올웨더 포트폴리오를 한국 투자자에게 그대로 적용하기 어려우며, 환율 리스크까지 전략적으로 반영한 한국형 올웨더 포트폴리오 구성 방안을 제안합니다.
+                    하지만 이 전략은 미국에서 투자(USD)를 기준으로 설계되었기에, 원화(KRW)를 주요 통화로 사용하는 한국인에게는 환율 변동이라는 추가 변수가 존재합니다.<br>
+                    따라서 일반 올웨더 포트폴리오를 한국 투자자에게도 그대로 적용하기 보다는, 환율 리스크까지 전략적으로 반영한 한국형 올웨더 포트폴리오 구성 방안을 제안합니다.
                 </p>
             </div>
             <div>
@@ -209,9 +208,11 @@
                     한국형 올웨더 포트폴리오는 장기적으로 주식투자와 유사한 수익률을 절반의 위험으로 달성할 수 있습니다.
                 </p>
             </div>
+            
             <div class="chart-container" style="max-width: 800px; height: 400px; margin-left: auto; margin-right: auto;">
-                <canvas id="performanceChart"></canvas>
+                <canvas id="performanceChart1"></canvas>
             </div>
+            
             <div class="overflow-x-auto max-w-4xl mx-auto my-8">
                 <h4 class="text-xl font-bold mb-4 text-center"> 주요 성과 지표 비교 </h4>
                 <table class="min-w-full bg-white border border-stone-200">
@@ -225,8 +226,8 @@
                     <tbody>
                         <tr>
                             <td class="py-2 px-4 border-b text-center">연평균 수익률 (CAGR)</td>
-                            <td class="py-2 px-4 border-b text-center">4.9%</td>
-                            <td class="py-2 px-4 border-b text-center">7.7%</td>
+                            <td class="py-2 px-4 border-b text-center">8.9%</td>
+                            <td class="py-2 px-4 border-b text-center">9.1%</td>
                         </tr>
                         <tr>
                             <td class="py-2 px-4 border-b text-center">1년 최대 낙폭 (MDD)</td>
@@ -235,8 +236,42 @@
                         </tr>
                         <tr>
                             <td class="py-2 px-4 border-b text-center">변동성 (Std. Dev)</td>
-                            <td class="py-2 px-4 border-b text-center">17.4%</td>
-                            <td class="py-2 px-4 border-b text-center">8.2%</td>
+                            <td class="py-2 px-4 border-b text-center">17.5%</td>
+                            <td class="py-2 px-4 border-b text-center">8.3%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            
+            <div class="chart-container" style="max-width: 800px; height: 400px; margin-left: auto; margin-right: auto;">
+                <canvas id="performanceChart2"></canvas>
+            </div>
+            <div class="overflow-x-auto max-w-4xl mx-auto my-8">
+                <h4 class="text-xl font-bold mb-4 text-center"> 국민연금 투자 수익률과 비교 </h4>
+                <table class="min-w-full bg-white border border-stone-200">
+                    <thead>
+                        <tr class="bg-stone-100">
+                            <th class="py-2 px-4 border-b text-center">지표</th>
+                            <th class="py-2 px-4 border-b text-center">국민연금(NPS)</th>
+                            <th class="py-2 px-4 border-b text-center">한국형 올웨더</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b text-center">연평균 수익률 (CAGR)</td>
+                            <td class="py-2 px-4 border-b text-center">6.8%</td>
+                            <td class="py-2 px-4 border-b text-center">9.1%</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b text-center">1년 최대 낙폭 (MDD)</td>
+                            <td class="py-2 px-4 border-b text-center">-8%</td>
+                            <td class="py-2 px-4 border-b text-center">-14%</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b text-center">변동성 (Std. Dev)</td>
+                            <td class="py-2 px-4 border-b text-center">7.0%</td>
+                            <td class="py-2 px-4 border-b text-center">8.3%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -302,13 +337,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 6. 투자노트 섹션 -->
-        <div id="note-section" class="content-section">
-                <iframe src="note.html" title="title_here" loading="lazy" eferrerpolicy="no-referrer"
-                                        width="100%" height="800px" style="border: none;">
-                </iframe>
         </div>
         
     </main>
@@ -482,20 +510,20 @@
                          }
             });
 
-            // 과거 성과 시뮬레이션 라인 차트
-            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            // 과거 성과 시뮬레이션 라인 차트1
+            const performanceCtx = document.getElementById('performanceChart1').getContext('2d');
             const performanceChart = new Chart(performanceCtx, {
                 type: 'line',
                 data: {
-                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025.9'],
                     datasets: [
                            {label: '한국 주식(KOSPI)',
-                            data: [100, 106.8, 138.3, 116.6, 132.9, 175.6, 189.5, 142.2, 179.6, 160.7],
+                            data: [100, 106.8, 138.3, 116.6, 132.9, 175.6, 189.5, 142.2, 179.6, 160.7, 234.1],
                             borderColor: '#1d4ed8',
                             backgroundColor: 'rgba(29, 78, 216, 0.1)',
                             fill: false, tension: 0.0 },
                            {label: '한국형 올웨더 포트폴리오',
-                            data: [100, 110.2, 115.8, 114.3, 140.5, 157.3, 181.4, 155.8, 182.9, 210.4],
+                            data: [100, 110.2, 115.8, 114.3, 140.5, 157.3, 181.4, 155.8, 182.9, 210.4, 239.2],
                             borderColor: 'rgba(255, 165, 0, 0.6)',
                             backgroundColor: 'rgba(255, 165, 0, 0.9)', fill: false, tension: 0.0 }]
                 },
@@ -514,6 +542,37 @@
                             padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8}}}
             });
 
+             // 과거 성과 시뮬레이션 라인 차트2
+            const performanceCtx = document.getElementById('performanceChart1').getContext('2d');
+            const performanceChart = new Chart(performanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025.9'],
+                    datasets: [
+                           {label: '국민연금 (NPS)',
+                            data: [100, 104.8, 112.4, 111.3, 123.9, 135.9, 150.6, 138.2, 157, 180.5, 192.9],
+                            borderColor: '#1d4ed8',
+                            backgroundColor: 'rgba(29, 78, 216, 0.1)',
+                            fill: false, tension: 0.0 },
+                           {label: '한국형 올웨더 포트폴리오',
+                            data: [100, 110.2, 115.8, 114.3, 140.5, 157.3, 181.4, 155.8, 182.9, 210.4, 239.2],
+                            borderColor: 'rgba(255, 165, 0, 0.6)',
+                            backgroundColor: 'rgba(255, 165, 0, 0.9)', fill: false, tension: 0.0 }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '연도' }, ticks:{font:{size:16}}  },
+                        y: { title: { display: true, text: '누적 수익률 (기준: 100)' }, ticks:{font:{size:16}} }
+                    },
+                    plugins: {
+                        legend: { position: 'top' , labels: { font: { size: 18, family: "'Noto Sans KR', sans-serif" } } },
+                        tooltip: {
+                            bodyFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
+                            titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
+                            padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8}}}
+            });
             // 아코디언 메뉴 기능
             const accordionItems = document.querySelectorAll('.accordion-item');
             accordionItems.forEach(item => {
