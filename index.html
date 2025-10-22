@@ -212,7 +212,6 @@
             <div class="chart-container" style="max-width: 800px; height: 400px; margin-left: auto; margin-right: auto;">
                 <canvas id="performanceChart1"></canvas>
             </div>
-            
             <div class="overflow-x-auto max-w-4xl mx-auto my-8">
                 <h4 class="text-xl font-bold mb-4 text-center"> 주요 성과 지표 비교 </h4>
                 <table class="min-w-full bg-white border border-stone-200">
@@ -242,7 +241,6 @@
                     </tbody>
                 </table>
             </div>
-
             
             <div class="chart-container" style="max-width: 800px; height: 400px; margin-left: auto; margin-right: auto;">
                 <canvas id="performanceChart2"></canvas>
@@ -543,7 +541,7 @@
             });
 
              // 과거 성과 시뮬레이션 라인 차트2
-            const performanceCtx = document.getElementById('performanceChart1').getContext('2d');
+            const performanceCtx = document.getElementById('performanceChart2').getContext('2d');
             const performanceChart = new Chart(performanceCtx, {
                 type: 'line',
                 data: {
@@ -573,6 +571,7 @@
                             titleFont: { size: 16, family: "'Noto Sans KR', sans-serif" },
                             padding: 12, backgroundColor: 'rgba(0,0,0,0.7)', cornerRadius: 8}}}
             });
+            
             // 아코디언 메뉴 기능
             const accordionItems = document.querySelectorAll('.accordion-item');
             accordionItems.forEach(item => {
